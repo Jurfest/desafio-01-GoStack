@@ -9,17 +9,13 @@ const projects = [
   { id: "2", title: "Reactive Native", tasks: [] }
 ];
 
-// Score of how many requests have been made in the application so far
-var reqNum =  0;
-
 // Middlewares
 
 // Middleware global:
 server.use((req, res, next) => {
   console.time('Request');
   console.log(`Method: ${req.method}, URL: ${req.url}`);
-  reqNum++;
-  console.log(`Number of total requests: ${reqNum}`);
+  console.count('Number of total requests:');
   next();
   console.timeEnd('Request');
 });
@@ -53,8 +49,12 @@ server.get('/projects', (req, res) => {
 // Register a new project within the array:
 server.post('/projects', checkIdExists, (req, res) => {
   const { id, title } = req.body;
-  const newProject = { id: `${id}`, title: `${title}`, tasks: [] };
-  projects.push(newProject);
+  const project = {
+    id,
+    title,
+    tasks: []
+  };
+  projects.push(project);
 
   return res.json(projects);
 });
