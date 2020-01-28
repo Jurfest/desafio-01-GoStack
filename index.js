@@ -9,7 +9,7 @@ const projects = [
   { id: "2", title: "Reactive Native", tasks: [] }
 ];
 
-// score of how many requests have been made in the application so far;
+// Score of how many requests have been made in the application so far
 var reqNum =  0;
 
 // Middlewares
@@ -17,7 +17,7 @@ var reqNum =  0;
 // Middleware global:
 server.use((req, res, next) => {
   console.time('Request');
-  console.log(`Método: ${req.method}, URL: ${req.url}`);
+  console.log(`Method: ${req.method}, URL: ${req.url}`);
   reqNum++;
   console.log(`Number of total requests: ${reqNum}`);
   next();
@@ -84,9 +84,8 @@ server.delete('/projects/:id', checkIdAlreadyExistsAndAllow, (req, res) => {
   return res.json(projects);
 });
 
-// A rota deve receber um campo title e armazenar uma nova tarefa no array de 
-// tarefas de um projeto específico escolhido através do id presente nos 
-// parâmetros da rota;
+// Stores a new task in the tasks of a specific project chosen through the id 
+// present in the route parameters; route receives a title field.
 server.post('/projects/:id/tasks', checkIdAlreadyExistsAndAllow, (req, res) => {
   const { title } = req.body;
   const { id } = req.params;
